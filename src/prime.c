@@ -39,6 +39,38 @@
 #include <time.h>
 #include "prime.h"
 
+static const int primes[] = { // stl
+  /* 0     */              5, 7,
+  /* 1     */              11, 17,
+  /* 2     */              23, 37,
+  /* 3     */              47, 71,
+  /* 4     */              97, 131,
+  /* 5     */              199, 293,
+  /* 6     */              409, 631,
+  /* 7     */              823, 1327,
+  /* 8     */              1741, 2801,
+  /* 9     */              3469, 5839,
+  /* 10    */              6949, 10103,
+  /* 11    */              14033, 21023,
+  /* 12    */              28411, 43627,
+  /* 13    */              57557, 75431,
+  /* 14    */              116731, 187751,
+  /* 15    */              236897, 389357,
+  /* 16    */              480881, 786433,
+  /* 17    */              976369, 1572869,
+  /* 18    */              1982627, 3145739,
+  /* 19    */              4026031, 6291469,
+  /* 20    */              8175383, 12582917,
+  /* 21    */              16601593, 25165843,
+  /* 22    */              33712729, 50331653,
+  /* 23    */              68460391, 100663319,
+  /* 24    */              139022417, 201326611,
+  /* 25    */              282312799, 402653189,
+  /* 26    */              573292817, 805306457
+  /* 27                  1164186217,
+   28                  2364114217,
+   29                  4294967291 */
+};
 
 #define Random(i) ( (rand() % (i)) + 1 )
 #define isEven(src) (!((src) & 0x1))
@@ -223,6 +255,13 @@ static int isPrime(unsigned int src)
 
 unsigned int bdd_prime_gte(unsigned int src)
 {
+  size_t n = sizeof(primes)/sizeof(primes[0]);
+
+  for (int i=0; i<n; i++) {
+    if (src <= primes[i])
+      return primes[i];
+  }  
+  
   if (isEven(src))
     ++src;
 
@@ -235,6 +274,13 @@ unsigned int bdd_prime_gte(unsigned int src)
 
 unsigned int bdd_prime_lte(unsigned int src)
 {
+  size_t n = sizeof(primes)/sizeof(primes[0]);
+
+  for (int i=n-1; i>=0; i--) {
+    if (src >= primes[i])
+      return primes[i];
+  }  
+
   if (isEven(src))
      --src;
 
