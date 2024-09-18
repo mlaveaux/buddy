@@ -111,7 +111,7 @@ static int cacheratio;
 static BDD satPolarity;
 static int firstReorder;            /* Used instead of local variable in order
 				       to avoid compiler warning about 'first'
-				       being clobbered by setjmp */
+				       being clobbered by _setjmp */
 
 static char*            allsatProfile; /* Variable profile for bdd_allsat() */
 static bddallsathandler allsatHandler; /* Callback handler for bdd_allsat() */
@@ -399,7 +399,7 @@ BDD bdd_not(BDD r)
    CHECKa(r, bddfalse);
 
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       INITREF;
       
@@ -511,7 +511,7 @@ BDD bdd_apply(BDD l, BDD r, int op)
    }
 
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       INITREF;
       applyop = op;
@@ -738,7 +738,7 @@ BDD bdd_ite(BDD f, BDD g, BDD h)
    CHECKa(h, bddfalse);
 
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       INITREF;
       
@@ -909,7 +909,7 @@ BDD bdd_restrict(BDD r, BDD var)
       return r;
    
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       if (varset2svartable(var) < 0)
 	 return bddfalse;
@@ -1001,7 +1001,7 @@ BDD bdd_constrain(BDD f, BDD c)
    CHECKa(c,bddfalse);
    
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       INITREF;
       miscid = CACHEID_CONSTRAIN;
@@ -1120,7 +1120,7 @@ BDD bdd_replace(BDD r, bddPair *pair)
    CHECKa(r, bddfalse);
    
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       INITREF;
       replacepair = pair->result;
@@ -1245,7 +1245,7 @@ BDD bdd_compose(BDD f, BDD g, int var)
    }
    
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       INITREF;
       composelevel = bddvar2level[var];
@@ -1357,7 +1357,7 @@ BDD bdd_veccompose(BDD f, bddPair *pair)
    CHECKa(f, bddfalse);
    
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       INITREF;
       replacepair = pair->result;
@@ -1440,7 +1440,7 @@ BDD bdd_simplify(BDD f, BDD d)
    CHECKa(d, bddfalse);
    
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       INITREF;
       applyop = bddop_or;
@@ -1552,7 +1552,7 @@ BDD bdd_exist(BDD r, BDD var)
       return r;
 
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       if (varset2vartable(var) < 0)
 	 return bddfalse;
@@ -1603,7 +1603,7 @@ BDD bdd_forall(BDD r, BDD var)
       return r;
 
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       if (varset2vartable(var) < 0)
 	 return bddfalse;
@@ -1657,7 +1657,7 @@ BDD bdd_unique(BDD r, BDD var)
       return r;
 
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       if (varset2vartable(var) < 0)
 	 return bddfalse;
@@ -1763,7 +1763,7 @@ BDD bdd_appex(BDD l, BDD r, int opr, BDD var)
       return bdd_apply(l,r,opr);
 
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       if (varset2vartable(var) < 0)
 	 return bddfalse;
@@ -1829,7 +1829,7 @@ BDD bdd_appall(BDD l, BDD r, int opr, BDD var)
       return bdd_apply(l,r,opr);
 
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       if (varset2vartable(var) < 0)
 	 return bddfalse;
@@ -1895,7 +1895,7 @@ BDD bdd_appuni(BDD l, BDD r, int opr, BDD var)
       return bdd_apply(l,r,opr);
 
  again:
-   if (setjmp(bddexception) == 0)
+   if (_setjmp(bddexception) == 0)
    {
       if (varset2vartable(var) < 0)
 	 return bddfalse;

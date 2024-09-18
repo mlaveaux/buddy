@@ -233,7 +233,7 @@ int bdd_init(int initnodesize, int cs)
    bdd_reorder_init();
    bdd_fdd_init();
    
-   if (setjmp(bddexception) != 0)
+   if (_setjmp(bddexception) != 0)
       assert(0);
 
    return 0;
@@ -1307,7 +1307,7 @@ int bdd_makenode(unsigned int level, int low, int high)
       if ((bddnodesize-bddfreenum) >= usednodes_nextreorder  &&
 	   bdd_reorder_ready())
       {
-	 longjmp(bddexception,1);
+	 _longjmp(bddexception,1);
       }
 
       if ((bddfreenum*100) / bddnodesize <= minfreenodes)
